@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifesto — La Vita Bontì</title>
+<meta name="description" content="O manifesto da La Vita Bontì. Um brinde à vida boa.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1714;
+    --gold: #B89A6A;
+    --muted: #8A8278;
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* Topbar */
+  .topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 50;
+    padding: 24px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(to bottom, rgba(245,240,232,0.95), transparent);
+  }
+
+  .topbar-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--ink);
+    text-decoration: none;
+  }
+
+  .topbar-brand em { font-style: italic; color: var(--gold); }
+
+  .topbar-back {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .topbar-back:hover { color: var(--gold); }
+
+  /* Page */
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 140px 60px 120px;
+  }
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 100px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.2s forwards;
+  }
+
+  .brand-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.2rem, 5vw, 3.4rem);
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .brand-name em { font-style: italic; color: var(--gold); }
+
+  .divider-top {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, transparent, var(--gold), transparent);
+    margin: 28px auto;
+  }
+
+  .subtitle {
+    font-size: 0.62rem;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--muted);
+    font-weight: 300;
+  }
+
+  /* Blocks */
+  .manifesto-body { display: flex; flex-direction: column; gap: 0; }
+
+  .block {
+    opacity: 0;
+    animation: fadeUp 1s ease forwards;
+  }
+  .block:nth-child(1) { animation-delay: 0.5s; }
+  .block:nth-child(2) { animation-delay: 0.7s; }
+  .block:nth-child(3) { animation-delay: 0.9s; }
+  .block:nth-child(4) { animation-delay: 1.1s; }
+  .block:nth-child(5) { animation-delay: 1.3s; }
+  .block:nth-child(6) { animation-delay: 1.5s; }
+
+  .block-inner {
+    padding: 52px 0;
+    border-bottom: 1px solid rgba(26,23,20,0.1);
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 0 48px;
+    align-items: start;
+  }
+
+  .block:last-child .block-inner { border-bottom: none; }
+
+  .block-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 3.8rem;
+    line-height: 1;
+    color: rgba(26,23,20,0.07);
+    padding-top: 4px;
+    text-align: right;
+    user-select: none;
+  }
+
+  .block-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.4rem, 2.5vw, 1.85rem);
+    line-height: 1.25;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: 0.01em;
+  }
+
+  .block-heading em { font-style: italic; color: var(--gold); }
+
+  .block-text {
+    font-size: 0.82rem;
+    line-height: 2;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    max-width: 480px;
+    margin: 0;
+  }
+
+  /* Closing */
+  .closing {
+    margin-top: 90px;
+    text-align: center;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 1.8s forwards;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+  }
+
+  .closing-line { width: 60px; height: 1px; background: var(--gold); }
+
+  .closing-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1.3rem, 2.8vw, 1.9rem);
+    color: var(--ink);
+    letter-spacing: 0.04em;
+    line-height: 1.4;
+  }
+
+  .closing-attribution {
+    font-size: 0.6rem;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 90px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0;
+    animation: fadeUp 1s ease 2s forwards;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 0.95rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: 0.25;
+  }
+
+  .footer-year {
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    color: var(--muted);
+    opacity: 0.4;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(22px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .topbar { padding: 20px 24px; }
+    .page { padding: 110px 28px 80px; }
+    .block-inner { grid-template-columns: 1fr; gap: 8px 0; }
+    .block-number { text-align: left; font-size: 2.6rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topbar">
+  <a href="/index.html" class="topbar-brand">La Vita <em>Bontì</em></a>
+  <a href="/index.html" class="topbar-back">← Voltar</a>
+</nav>
+
+<div class="page">
+
+  <header class="header">
+    <div class="brand-name">La Vita <em>Bontì</em></div>
+    <div class="divider-top"></div>
+    <div class="subtitle">Manifesto</div>
+  </header>
+
+  <main class="manifesto-body">
+
+    <div class="block">
+      <div class="block-inner">
+        <div class="block-number">I</div>
+        <div class="block-content">
+          <div class="block-heading">Acreditamos que o <em>luxo verdadeiro</em><br>não precisa se anunciar.</div>
+          <p class="block-text">Quem sabe, reconhece. Quem não sabe, não precisa saber. A confiança de uma peça bem-feita não busca validação — ela simplesmente existe, com a segurança de quem não tem nada a provar.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-inner">
+        <div class="block-number">II</div>
+        <div class="block-content">
+          <div class="block-heading">Fazemos roupas para quem<br>já <em>chegou</em> lá dentro.</div>
+          <p class="block-text">Nossa peça não transforma quem você é. Ela acompanha quem você já se tornou. Não vendemos aspiração. Vendemos confirmação — o prazer tranquilo de vestir algo à altura do que você construiu.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-inner">
+        <div class="block-number">III</div>
+        <div class="block-content">
+          <div class="block-heading">O silêncio é a nossa<br>linguagem <em>mais clara.</em></div>
+          <p class="block-text">Sem logos exibidos. Sem estampas que gritam. Sem ruído visual. Apenas tecido, caimento e proporção. O detalhe que só o toque revela. O acabamento que só o tempo aprecia. Isso é Bontì.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-inner">
+        <div class="block-number">IV</div>
+        <div class="block-content">
+          <div class="block-heading">Matéria-prima não é custo.<br>É <em>argumento.</em></div>
+          <p class="block-text">Cada tecido escolhido é uma decisão estética e filosófica. Não abrimos mão da qualidade do material para preservar a margem. Abrimos mão de tudo o que não importa para preservar o que importa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-inner">
+        <div class="block-number">V</div>
+        <div class="block-content">
+          <div class="block-heading">Somos brasileiros que não<br>pedem <em>desculpas</em> por isso.</div>
+          <p class="block-text">Referências italianas, alma tropical, construção nacional. Bontì nasce no Brasil porque a vida boa não tem endereço único. Ela tem postura. E a postura, essa, é inteiramente nossa.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-inner">
+        <div class="block-number">VI</div>
+        <div class="block-content">
+          <div class="block-heading">Cada peça é um <em>brinde</em><br>à vida que você escolheu.</div>
+          <p class="block-text">La Vita Bontì não começou num ateliê. Começou numa ideia — de que existe uma forma mais elegante de existir. Que vestir bem não é vaidade. É respeito. Por você. Pelo seu tempo. Pelo que você construiu.</p>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <div class="closing">
+    <div class="closing-line"></div>
+    <div class="closing-quote">La Vita Bontì.</div>
+    <div class="closing-attribution">Um brinde à vida boa.</div>
+  </div>
+
+  <footer class="footer">
+    <div class="footer-brand">La Vita Bontì</div>
+    <div class="footer-year">MMXXV</div>
+  </footer>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>La Vita Bontì</title>
+<meta name="description" content="Moda masculina premium. Algodão egípcio, caimento preciso, silêncio que fala por si.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Montserrat:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1714;
+    --gold: #B89A6A;
+    --muted: #8A8278;
+  }
+
+  body {
+    background: var(--ink);
+    color: var(--cream);
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 200;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    width: 100%;
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 80px 40px 100px;
+  }
+
+  .hero-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .hero-glow {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 300px;
+    background: radial-gradient(ellipse, rgba(184,154,106,0.07) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-corner-tl,
+  .hero-corner-br {
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    pointer-events: none;
+    opacity: 0;
+    animation: fadeUp 1s ease 1.5s forwards;
+  }
+  .hero-corner-tl { top: 32px; left: 40px; border-top: 1px solid rgba(184,154,106,0.35); border-left: 1px solid rgba(184,154,106,0.35); }
+  .hero-corner-br { bottom: 32px; right: 40px; border-bottom: 1px solid rgba(184,154,106,0.35); border-right: 1px solid rgba(184,154,106,0.35); }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .hero-eyebrow {
+    font-size: 10px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 36px;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.3s forwards;
+  }
+
+  .hero-wordmark {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(2.6rem, 7vw, 4.8rem);
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream);
+    line-height: 1;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 0.5s forwards;
+  }
+
+  .hero-wordmark em {
+    font-style: italic;
+    color: var(--gold);
+  }
+
+  .hero-divider {
+    width: 1px;
+    height: 56px;
+    background: linear-gradient(to bottom, transparent, var(--gold) 40%, transparent);
+    margin: 32px auto;
+    opacity: 0;
+    animation: fadeUp 1s ease 0.8s forwards;
+  }
+
+  .hero-tagline {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(1rem, 2.2vw, 1.45rem);
+    color: rgba(245,240,232,0.5);
+    letter-spacing: 0.06em;
+    line-height: 1.6;
+    max-width: 400px;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 1s forwards;
+  }
+
+  .hero-cta-row {
+    display: flex;
+    gap: 24px;
+    margin-top: 52px;
+    align-items: center;
+    flex-wrap: wrap;
+    justify-content: center;
+    opacity: 0;
+    animation: fadeUp 1.2s ease 1.3s forwards;
+  }
+
+  .btn-primary {
+    font-size: 10px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--gold);
+    border: none;
+    padding: 15px 36px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: opacity 0.3s ease;
+  }
+  .btn-primary:hover { opacity: 0.85; }
+
+  .btn-secondary {
+    font-size: 10px;
+    letter-spacing: 0.38em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.4);
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    padding: 15px 0;
+    transition: color 0.3s ease;
+  }
+  .btn-secondary:hover { color: rgba(245,240,232,0.75); }
+
+  .hero-year {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    color: rgba(184,154,106,0.3);
+    opacity: 0;
+    animation: fadeUp 1s ease 1.7s forwards;
+    white-space: nowrap;
+  }
+
+  /* ── SECTION: FILOSOFIA ── */
+  .section-filosofia {
+    background: var(--cream);
+    color: var(--ink);
+    padding: 120px 40px;
+    text-align: center;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 48px;
+  }
+
+  .filosofia-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 60px 48px;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  .filosofia-item {}
+
+  .filosofia-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-style: italic;
+    font-size: 2.2rem;
+    color: rgba(26,23,20,0.08);
+    line-height: 1;
+    margin-bottom: 16px;
+  }
+
+  .filosofia-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: var(--ink);
+    margin-bottom: 14px;
+    letter-spacing: 0.02em;
+    line-height: 1.3;
+  }
+
+  .filosofia-title em { font-style: italic; color: var(--gold); }
+
+  .filosofia-text {
+    font-size: 0.75rem;
+    line-height: 1.9;
+    color: var(--muted);
+    font-weight: 300;
+    letter-spacing: 0.02em;
+  }
+
+  /* ── SECTION: PRODUTO ── */
+  .section-produto {
+    background: var(--ink);
+    padding: 120px 40px;
+    text-align: center;
+  }
+
+  .section-produto .section-label { margin-bottom: 20px; }
+
+  .produto-heading {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+    color: var(--cream);
+    letter-spacing: 0.04em;
+    line-height: 1.3;
+    margin-bottom: 20px;
+  }
+
+  .produto-heading em { font-style: italic; color: var(--gold); }
+
+  .produto-sub {
+    font-size: 0.78rem;
+    color: rgba(245,240,232,0.4);
+    letter-spacing: 0.06em;
+    line-height: 1.8;
+    max-width: 400px;
+    margin: 0 auto 60px;
+  }
+
+  .cores-row {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+    margin-bottom: 60px;
+  }
+
+  .cor-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+  }
+
+  .cor-circle {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1px solid rgba(184,154,106,0.2);
+  }
+
+  .cor-label {
+    font-size: 8px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.35);
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    background: var(--ink);
+    border-top: 1px solid rgba(184,154,106,0.12);
+    padding: 48px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  .footer-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-weight: 300;
+    font-size: 0.9rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.25);
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 32px;
+  }
+
+  .footer-links a {
+    font-size: 9px;
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.25);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--gold); }
+
+  .footer-year {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    color: rgba(184,154,106,0.25);
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 640px) {
+    .hero { padding: 60px 24px 80px; }
+    .hero-corner-tl { left: 20px; }
+    .hero-corner-br { right: 20px; }
+    .hero-cta-row { flex-direction: column; gap: 12px; }
+    .filosofia-grid { grid-template-columns: 1fr; gap: 48px; }
+    .section-filosofia, .section-produto { padding: 80px 24px; }
+    .site-footer { flex-direction: column; text-align: center; }
+    .footer-links { justify-content: center; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grain"></div>
+  <div class="hero-glow"></div>
+  <div class="hero-corner-tl"></div>
+  <div class="hero-corner-br"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">Primeira Coleção — Verão 2025</div>
+    <div class="hero-wordmark">La Vita <em>Bontì</em></div>
+    <div class="hero-divider"></div>
+    <div class="hero-tagline">Algodão egípcio. Caimento preciso.<br>Silêncio que fala por si.</div>
+    <div class="hero-cta-row">
+      <!-- Substitua o href abaixo pelo link da sua loja na Nuvemshop -->
+      <a href="#" class="btn-primary">Ver Coleção</a>
+      <a href="/manifesto.html" class="btn-secondary">Nosso Manifesto →</a>
+    </div>
+  </div>
+
+  <div class="hero-year">MMXXV</div>
+</section>
+
+<!-- FILOSOFIA -->
+<section class="section-filosofia">
+  <div class="section-label">A filosofia Bontì</div>
+  <div class="filosofia-grid">
+
+    <div class="filosofia-item">
+      <div class="filosofia-num">I</div>
+      <div class="filosofia-title">O luxo que não<br><em>precisa gritar</em></div>
+      <p class="filosofia-text">Quem sabe, reconhece. A confiança de uma peça bem-feita não busca validação — ela simplesmente existe.</p>
+    </div>
+
+    <div class="filosofia-item">
+      <div class="filosofia-num">II</div>
+      <div class="filosofia-title">Matéria-prima<br><em>como argumento</em></div>
+      <p class="filosofia-text">Algodão egípcio de fio longo. Cada tecido escolhido é uma decisão estética e filosófica, não um custo.</p>
+    </div>
+
+    <div class="filosofia-item">
+      <div class="filosofia-num">III</div>
+      <div class="filosofia-title">Feito no Brasil,<br><em>sem desculpas</em></div>
+      <p class="filosofia-text">Referências italianas, alma tropical, construção nacional. A vida boa não tem endereço único — ela tem postura.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PRODUTO -->
+<section class="section-produto">
+  <div class="section-label">Primeira Coleção</div>
+  <div class="produto-heading">Quatro cores.<br><em>Um único argumento.</em></div>
+  <p class="produto-sub">Camisetas em algodão egípcio, lisas, sem ruído. Apenas tecido e caimento.</p>
+
+  <div class="cores-row">
+    <div class="cor-item">
+      <div class="cor-circle" style="background:#0D0D0D;"></div>
+      <span class="cor-label">Preto</span>
+    </div>
+    <div class="cor-item">
+      <div class="cor-circle" style="background:#F0EDE6; border-color: rgba(184,154,106,0.4);"></div>
+      <span class="cor-label">Branco</span>
+    </div>
+    <div class="cor-item">
+      <div class="cor-circle" style="background:#1B2A40;"></div>
+      <span class="cor-label">Azul Marinho</span>
+    </div>
+    <div class="cor-item">
+      <div class="cor-circle" style="background:#4A5240;"></div>
+      <span class="cor-label">Verde Oliva</span>
+    </div>
+  </div>
+
+  <!-- Substitua o href abaixo pelo link da sua loja na Nuvemshop -->
+  <a href="#" class="btn-primary">Ver Coleção</a>
+</section>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="footer-brand">La Vita Bontì</div>
+  <div class="footer-links">
+    <a href="/manifesto.html">Manifesto</a>
+    <!-- Substitua o href abaixo pelo link da sua loja na Nuvemshop -->
+    <a href="#">Coleção</a>
+  </div>
+  <div class="footer-year">MMXXV</div>
+</footer>
+
+</body>
+</html>
